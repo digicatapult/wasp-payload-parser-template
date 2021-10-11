@@ -1,0 +1,75 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "wasp-payload-parser-template.fullname" . }}
+  labels:
+    {{- include "wasp-payload-parser-template.labels" . | nindent 4 }}
+spec:
+  selector:
+    matchLabels:
+      name: {{ include "wasp-payload-parser-template.fullname" . }}
+  template:
+    metadata:
+      annotations:
+        checksum/config: {{ include (print $.Template.BasePath "/configmap.yaml") . | sha256sum }}
+        checksum/secret: {{ include (print $.Template.BasePath "/secret.yaml") . | sha256sum }}
+      labels:
+        name: {{ include "wasp-payload-parser-template.fullname" . }}
+    spec:
+      {{- include "wasp-payload-parser-template.imagePullSecrets" . | indent 6 }}
+      initContainers:
+        {{- include "wasp-payload-parser-template.init.thingType" . | indent 8 }}
+        {{- include "wasp-payload-parser-template.init.kafkaTopics" . | indent 8 }}
+
+      containers:
+        - name: {{ include "wasp-payload-parser-template.fullname" . }}
+          image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
+          imagePullPolicy: {{ .Values.image.pullPolicy | quote }}
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: {{ .Values.config.port }}
+            initialDelaySeconds: 15
+            timeoutSeconds: 3
+            periodSeconds: 5
+          env:
+            - name: PORT
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ include "wasp-payload-parser-template.fullname" . }}-config
+                  key: port
+            - name: WASP_SENSOR_TYPE
+              valueFrom:
+                configMapKeyRef:
+                  name:  {{ include "wasp-payload-parser-template.fullname" . }}-config
+                  key: waspSensor
+            - name: LOG_LEVEL
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ include "wasp-payload-parser-template.fullname" . }}-config
+                  key: logLevel
+            - name: KAFKA_LOG_LEVEL
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ include "wasp-payload-parser-template.fullname" . }}-config
+                  key: kafkaLogLevel
+            - name: KAFKA_BROKERS
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ include "wasp-payload-parser-template.fullname" . }}-config
+                  key: kafkaBrokers
+            - name: KAFKA_READINGS_TOPIC
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ include "wasp-payload-parser-template.fullname" . }}-config
+                  key: kafkaReadingsTopic
+            - name: KAFKA_EVENTS_TOPIC
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ include "wasp-payload-parser-template.fullname" . }}-config
+                  key: kafkaEventsTopic
+            - name: KAFKA_PAYLOAD_ROUTING_PREFIX
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ include "wasp-payload-parser-template.fullname" . }}-config
+                  key: kafkaPayloadRoutingPrefix

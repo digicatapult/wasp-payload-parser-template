@@ -1,0 +1,27 @@
+waspthingmock:
+  enabled: false
+kafka:
+  enabled: true
+config:
+  port: 80
+  waspSensorType: wasp-payload-parser-template
+  logLevel: info
+  kafkajsLogLevel: nothing
+
+  # used if kafka is not deployed by this chart
+  kafkaBrokers: null
+  # kafka topic configuration
+  kafkaReadingsTopic: readings
+  kafkaEventsTopic: events
+  kafkaPayloadRoutingPrefix: payloads
+  kafkaPayloadsReplicationFactor: 1
+  kafkaPayloadsPartitions: 5
+  init:
+    registerThingType: true
+    thingServiceName: wasp-thing-service
+    thingServicePort: 80
+image:
+  repository: ghcr.io/digicatapult/wasp-payload-parser-template
+  pullPolicy: IfNotPresent
+  tag: 'v0.0.4'
+  pullSecrets: ['ghcr-digicatapult']
