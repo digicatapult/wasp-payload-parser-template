@@ -3,7 +3,7 @@ entries:
   wasp-payload-parser-template:
   - apiVersion: v2
     appVersion: 0.0.4
-    created: "2021-10-06T14:50:22.665561143Z"
+    created: "2021-10-12T16:09:37.663759758Z"
     dependencies:
     - condition: kafka.enabled
       name: kafka
@@ -15,7 +15,7 @@ entries:
       repository: https://charts.bitnami.com/bitnami
       version: ^8.7.1
     description: A Helm chart for wasp-payload-parser-template
-    digest: 74626ac67b3050991b8fca4cfa20fb71e08ed78a0ba18e74397cbaf6e3413996
+    digest: 81508c40aed0ae81509b78e33448414d444d2878e3a85b9f6e801afed38d9085
     maintainers:
     - email: opensource@digicatapult.org.uk
       name: digicatapult
@@ -63,4 +63,4 @@ entries:
     urls:
     - https://digicatapult.github.io/wasp-payload-parser-template/wasp-payload-parser-template-0.0.2.tgz
     version: 0.0.2
-generated: "2021-10-06T14:50:22.655738827Z"
+generated: "2021-10-12T16:09:37.653305425Z"
