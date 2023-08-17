@@ -1,6 +1,6 @@
 {
   "name": "@digicatapult/wasp-payload-parser-template",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "Service for WASP",
   "main": "app/index.js",
   "scripts": {
