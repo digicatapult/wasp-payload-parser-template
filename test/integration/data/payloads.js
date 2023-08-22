@@ -1,4 +1,4 @@
-const DUMMY_READING_PAYLOAD_1 = (messageTimestamp) => ({
+export const DUMMY_READING_PAYLOAD_1 = (messageTimestamp) => ({
   message: {
     key: '00000000-0000-0000-0000-000000000000',
     value: JSON.stringify({
@@ -30,7 +30,7 @@ const DUMMY_READING_PAYLOAD_1 = (messageTimestamp) => ({
   expectedEvents: [],
 })
 
-const DUMMY_READING_PAYLOAD_2 = (messageTimestamp) => ({
+export const DUMMY_READING_PAYLOAD_2 = (messageTimestamp) => ({
   message: {
     key: '00000000-0000-0000-0000-000000000000',
     value: JSON.stringify({
@@ -61,7 +61,7 @@ const DUMMY_READING_PAYLOAD_2 = (messageTimestamp) => ({
   ],
 })
 
-const DUMMY_EVENT_PAYLOAD = (messageTimestamp) => ({
+export const DUMMY_EVENT_PAYLOAD = (messageTimestamp) => ({
   message: {
     key: '00000000-0000-0000-0000-000000000000',
     value: JSON.stringify({
@@ -89,7 +89,7 @@ const DUMMY_EVENT_PAYLOAD = (messageTimestamp) => ({
   ],
 })
 
-const UNEXPECTED_MESSAGE_TYPE_PAYLOAD = (messageTimestamp) => ({
+export const UNEXPECTED_MESSAGE_TYPE_PAYLOAD = (messageTimestamp) => ({
   message: {
     key: '00000000-0000-0000-0000-000000000000',
     value: JSON.stringify({
@@ -110,7 +110,7 @@ const UNEXPECTED_MESSAGE_TYPE_PAYLOAD = (messageTimestamp) => ({
   expectedEvents: [],
 })
 
-const UNEXPECTED_APP_ID_PAYLOAD = (messageTimestamp) => ({
+export const UNEXPECTED_APP_ID_PAYLOAD = (messageTimestamp) => ({
   message: {
     key: '00000000-0000-0000-0000-000000000000',
     value: JSON.stringify({
@@ -130,11 +130,3 @@ const UNEXPECTED_APP_ID_PAYLOAD = (messageTimestamp) => ({
   expectedReadings: [],
   expectedEvents: [],
 })
-
-module.exports = {
-  DUMMY_READING_PAYLOAD_1,
-  DUMMY_READING_PAYLOAD_2,
-  DUMMY_EVENT_PAYLOAD,
-  UNEXPECTED_MESSAGE_TYPE_PAYLOAD,
-  UNEXPECTED_APP_ID_PAYLOAD,
-}

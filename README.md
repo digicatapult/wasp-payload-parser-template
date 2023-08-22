@@ -10,7 +10,6 @@ This repo provides:
 - linting with WASP prettier configuration
 - open-sourcing materials
 - Docker file
-- A simple helm chart for the payload parser
 - Testing apparatus using `mocha`, `chai` and `supertest`
 - Github workflows for testing and release
 

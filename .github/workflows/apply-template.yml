@@ -43,17 +43,12 @@ jobs:
       - name: Reset versioning
         run: |
           npm version 0.0.1 --allow-same-version --no-git-tag-version
-          yq eval -i '.version |= "0.0.1"' ./helm/wasp-payload-parser-template/Chart.yaml
-          yq eval -i '.appVersion |= "0.0.1"' ./helm/wasp-payload-parser-template/Chart.yaml
-          yq eval -i '.image.tag |= "v0.0.1"' ./helm/wasp-payload-parser-template/values.yaml
         env:
           GITHUB_PACKAGE_TOKEN: ${{ secrets.GITHUB_TOKEN }}   
       - name: Update repo name references
         run: |
           find . \( -path ./.git -prune -o -path ./.github/workflows -prune \) -type f -o -name '*' -exec sed -i 's/wasp-payload-parser-template/${{ needs.repo_ids.outputs.repo_name }}/gI' {} \;
           find . \( -path ./.git -prune -o -path ./.github/workflows -prune \) -type f -o -name '*' -exec sed -i 's/digicatapult/${{ needs.repo_ids.outputs.org_name }}/gI' {} \;
-      - name: Rename Helm Directory
-        run: mv ./helm/wasp-payload-parser-template ./helm/${{ needs.repo_ids.outputs.repo_name }}
       - name: Remove template workflow
         run: rm ./.github/workflows/apply-template.yml
       - name: Set Git Config
