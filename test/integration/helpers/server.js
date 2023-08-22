@@ -1,9 +1,9 @@
-const { before, after } = require('mocha')
-const request = require('supertest')
+import { before, after } from 'mocha'
+import request from 'supertest'
 
-const { createHttpServer } = require('../../../app/server')
+import { createHttpServer } from '../../../app/server.js'
 
-const setupServer = (context) => {
+export const setupServer = (context) => {
   before(async function () {
     this.timeout(30000)
     Object.assign(context, await createHttpServer())
@@ -15,5 +15,3 @@ const setupServer = (context) => {
     await context.payloadPipeline.disconnect()
   })
 }
-
-module.exports = { setupServer }

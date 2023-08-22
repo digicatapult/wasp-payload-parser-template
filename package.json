@@ -1,15 +1,16 @@
 {
   "name": "@digicatapult/wasp-payload-parser-template",
-  "version": "0.0.5",
+  "version": "1.0.0",
   "description": "Service for WASP",
   "main": "app/index.js",
+  "type": "module",
   "scripts": {
-    "test": "NODE_ENV=test mocha --config ./test/mocharc.js ./test",
+    "test": "NODE_ENV=test mocha --config ./test/mocharc.cjs ./test",
     "lint": "eslint .",
     "depcheck": "depcheck",
     "start": "node app/index.js",
     "dev": "NODE_ENV=dev nodemon app/index.js | pino-colada",
-    "coverage": "nyc npm run test"
+    "coverage": "c8 npm run test"
   },
   "repository": {
     "type": "git",
@@ -34,7 +35,6 @@
   },
   "devDependencies": {
     "chai": "^4.3.1",
-    "delay": "^5.0.0",
     "depcheck": "^1.4.0",
     "eslint": "^7.21.0",
     "eslint-config-prettier": "^8.1.0",

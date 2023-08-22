@@ -1,8 +1,8 @@
-const { before, after } = require('mocha')
-const { Kafka, logLevel: kafkaLogLevels } = require('kafkajs')
-const delay = require('delay')
+import { before, after } from 'mocha'
+import { Kafka, logLevel as kafkaLogLevels } from 'kafkajs'
+import { setTimeout } from 'node:timers/promises'
 
-const setupKafka = async (context) => {
+export const setupKafka = async (context) => {
   before(async function () {
     this.timeout(30000)
     const kafka = new Kafka({
@@ -38,11 +38,11 @@ const setupKafka = async (context) => {
 
         // wait up to half second for results
         for (let i = 0; i < 5; i++) {
-          await delay(100)
+          await setTimeout(100)
           const messageCount = [...messages.values()].reduce((acc, m) => acc + m.length, 0)
           if (messageCount === waitCount) {
             // if we have the right number of results just wait a little longer just in case
-            await delay(100)
+            await setTimeout(100)
             return new Map(messages)
           }
         }
@@ -61,5 +61,3 @@ const setupKafka = async (context) => {
     await context.kafka.disconnect()
   })
 }
-
-module.exports = { setupKafka }

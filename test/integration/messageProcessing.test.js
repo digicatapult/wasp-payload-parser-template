@@ -1,17 +1,19 @@
-const { describe, before, it } = require('mocha')
-const { expect } = require('chai')
-const moment = require('moment')
-const { setupServer } = require('./helpers/server')
-const { setupKafka } = require('./helpers/kafka')
-const { WASP_SENSOR_TYPE } = require('../../app/env')
+import { describe, before, it } from 'mocha'
+import { expect } from 'chai'
+import moment from 'moment'
+import { setupServer } from './helpers/server.js'
+import { setupKafka } from './helpers/kafka.js'
+import env from '../../app/env.js'
 
-const {
+import {
   DUMMY_READING_PAYLOAD_1,
   DUMMY_READING_PAYLOAD_2,
   DUMMY_EVENT_PAYLOAD,
   UNEXPECTED_MESSAGE_TYPE_PAYLOAD,
   UNEXPECTED_APP_ID_PAYLOAD,
-} = require('./data/payloads')
+} from './data/payloads.js'
+
+const { WASP_SENSOR_TYPE } = env
 
 describe('message Processing', function () {
   const context = {}
